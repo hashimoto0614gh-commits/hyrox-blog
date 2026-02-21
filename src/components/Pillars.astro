@@ -1,0 +1,125 @@
+---
+const pillars = [
+  {
+    id:       'hyrox',
+    eyebrow:  '01 / COMPETE',
+    title:    'HYROX 競技',
+    body:     'VO2max 44→52。HYROX PB 1:18:42。種目別タイムと週次トレーニングログをすべて公開する。レース戦略・機材選定・ピーキング設計を数値で語る。',
+    stats:    [
+      { val: '1:18:42', label: 'HYROX PB' },
+      { val: '52',      label: 'VO2max' },
+    ],
+    href:     '/hyrox',
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="16" cy="16" r="12"/>
+      <polyline points="16,8 16,16 20,20"/>
+      <circle cx="16" cy="16" r="2" fill="currentColor" stroke="none"/>
+    </svg>`,
+  },
+  {
+    id:       'productivity',
+    eyebrow:  '02 / OPERATE',
+    title:    '生産性・経営',
+    body:     'スタートアップを経営しながらディープワーク22h/週を確保する設計。OKRとトレーニング周期化の同一構造、カレンダーブロッキングの実開示。',
+    stats:    [
+      { val: '22h',  label: 'ディープワーク/週' },
+      { val: '5×',   label: '早朝4:50 継続' },
+    ],
+    href:     '/productivity',
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <polyline points="4,24 10,14 16,18 22,8 28,12"/>
+      <rect x="4" y="24" width="24" height="2" fill="currentColor" stroke="none" rx="1"/>
+    </svg>`,
+  },
+  {
+    id:       'family',
+    eyebrow:  '03 / SUSTAIN',
+    title:    'パパ業・育児',
+    body:     '子どもと毎晩風呂に入り、週末は家族で公園に出る。「時間がない」を構造で解決する週間スケジュール設計と、家族の理解を得るための交渉術を公開する。',
+    stats:    [
+      { val: '11mo',  label: '風呂ストレッチ継続' },
+      { val: '3役',   label: '競技×経営×育児' },
+    ],
+    href:     '/family',
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="16" cy="9" r="4"/>
+      <circle cx="7" cy="13" r="3"/>
+      <circle cx="25" cy="13" r="3"/>
+      <path d="M8,24 C8,19 12,17 16,17 C20,17 24,19 24,24"/>
+      <path d="M2,26 C2,22 4,20 7,20"/>
+      <path d="M30,26 C30,22 28,20 25,20"/>
+    </svg>`,
+  },
+];
+---
+
+<section id="pillars" class="py-20 md:py-28 bg-surface-base" aria-labelledby="pillars-heading">
+  <div class="container-site">
+
+    <!-- Section header -->
+    <div class="mb-12 md:mb-16">
+      <p class="label-yellow mb-4">CONTENT PILLARS</p>
+      <h2 id="pillars-heading"
+          class="font-black text-white leading-tight"
+          style="font-size: clamp(2rem, 4vw, 3rem);">
+        3つの軸で語る。<br />
+        <span class="text-ink-secondary" style="font-size: 0.65em; font-weight: 500;">
+          競技・経営・育児——すべて数値付きで。
+        </span>
+      </h2>
+    </div>
+
+    <!-- Pillar cards -->
+    <div class="grid md:grid-cols-3 gap-px bg-subtle">
+      {pillars.map((pillar, i) => (
+        <a
+          href={pillar.href}
+          class="pillar-card group bg-surface-01 p-8 md:p-10 flex flex-col gap-8
+                 hover:bg-surface-02 transition-colors duration-300 cursor-pointer"
+          aria-label={`${pillar.title} セクションへ`}
+        >
+          <!-- Icon + eyebrow -->
+          <div class="flex items-start justify-between">
+            <span class="text-hyrox-yellow group-hover:scale-110 transition-transform duration-300 block">
+              <Fragment set:html={pillar.icon} />
+            </span>
+            <span class="label-yellow">{pillar.eyebrow}</span>
+          </div>
+
+          <!-- Title -->
+          <div class="flex-1">
+            <h3 class="font-black text-white text-2xl md:text-3xl mb-4
+                       group-hover:text-hyrox-yellow transition-colors duration-200">
+              {pillar.title}
+            </h3>
+            <p class="text-ink-secondary text-sm leading-relaxed">
+              {pillar.body}
+            </p>
+          </div>
+
+          <!-- Stats row -->
+          <div class="grid grid-cols-2 gap-4 border-t border-subtle pt-6">
+            {pillar.stats.map(stat => (
+              <div>
+                <p class="data-value text-xl mb-0.5">{stat.val}</p>
+                <p class="label-xs">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <!-- CTA arrow -->
+          <div class="flex items-center gap-2 label-xs text-ink-muted
+                      group-hover:text-hyrox-yellow transition-colors duration-200">
+            <span>記事を読む</span>
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
