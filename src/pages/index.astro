@@ -1,17 +1,15 @@
 ---
-import BaseLayout      from '@/layouts/BaseLayout.astro';
-import Header          from '@/components/Header.astro';
-import Hero            from '@/components/Hero.astro';
-import BentoGrid       from '@/components/BentoGrid.astro';
-import WordPressPosts   from '@/components/WordPressPosts.astro';
-import Newsletter      from '@/components/Newsletter.astro';
-import Footer          from '@/components/Footer.astro';
+import BaseLayout     from '@/layouts/BaseLayout.astro';
+import Header         from '@/components/Header.astro';
+import Hero           from '@/components/Hero.astro';
+import Pillars        from '@/components/Pillars.astro';
+import BentoGrid      from '@/components/BentoGrid.astro';
+import About          from '@/components/About.astro';
+import WordPressPosts  from '@/components/WordPressPosts.astro';
+import Newsletter     from '@/components/Newsletter.astro';
+import Footer         from '@/components/Footer.astro';
 import '@/styles/global.css';
 
-/**
- * WordPress サイト URL をここに設定する。
- * 未設定（空文字）の場合はプレースホルダー記事を表示する。
- */
 const WP_ENDPOINT = import.meta.env.WP_ENDPOINT ?? '';
 ---
 
@@ -23,12 +21,27 @@ const WP_ENDPOINT = import.meta.env.WP_ENDPOINT ?? '';
 
   <main>
     <Hero />
-    <BentoGrid />
-    <WordPressPosts
-      endpoint={WP_ENDPOINT}
-      perPage={6}
-      heading="Latest Articles"
-    />
+
+    <div class="reveal">
+      <Pillars />
+    </div>
+
+    <div class="reveal">
+      <BentoGrid />
+    </div>
+
+    <div class="reveal">
+      <About />
+    </div>
+
+    <div class="reveal">
+      <WordPressPosts
+        endpoint={WP_ENDPOINT}
+        perPage={6}
+        heading="Latest Articles"
+      />
+    </div>
+
     <Newsletter />
   </main>
 

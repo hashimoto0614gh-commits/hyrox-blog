@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
-
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
 
@@ -25,7 +23,7 @@
 
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: #0A0A0A; }
-  ::-webkit-scrollbar-thumb { background: #FFFF00; }
+  ::-webkit-scrollbar-thumb { background: #FFFF00; border-radius: 2px; }
 }
 
 @layer components {
@@ -37,14 +35,18 @@
     @apply inline-flex items-center gap-2
            bg-hyrox-yellow text-surface-base font-bold
            text-sm tracking-wider px-7 py-3.5
-           transition-opacity duration-200 hover:opacity-80;
+           transition-opacity duration-200 hover:opacity-80
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-hyrox-yellow
+           focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base;
   }
 
   .btn-ghost {
     @apply inline-flex items-center gap-2
            border border-ink-muted text-ink-secondary font-medium
            text-sm tracking-wider px-7 py-3.5
-           transition-colors duration-200 hover:border-white hover:text-white;
+           transition-colors duration-200 hover:border-white hover:text-white
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-white
+           focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base;
   }
 
   .label-xs {
@@ -63,4 +65,31 @@
   .data-value {
     @apply font-mono text-hyrox-yellow font-bold tabular-nums;
   }
+}
+
+/* ─── Scroll-reveal ──────────────────────────────────────────────── */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay:   0ms; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay:  80ms; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+  .reveal-stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+  .reveal-stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
 }
