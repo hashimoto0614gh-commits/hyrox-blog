@@ -1,0 +1,225 @@
+---
+// 2026 HYROX OSAKA — 仮日程 2026-04-19T09:00:00+09:00
+const TARGET_DATE = '2026-04-19T09:00:00+09:00';
+
+const trainingData = [
+  { label: 'RowErg\n1km', value: 3.47, max: 5, display: '3:28' },
+  { label: 'SkiErg\n1km', value: 3.93, max: 5, display: '3:56' },
+  { label: 'Roxzone\n100m', value: 1.23, max: 3, display: '1:14' },
+  { label: 'Run\n1km', value: 4.08, max: 6, display: '4:05' },
+  { label: 'WallBall\n×100', value: 4.5, max: 8, display: '4:31' },
+];
+
+const tiers = [
+  {
+    tier: 'TIER 1',
+    label: 'B2B',
+    title: 'ジム機材 ROI 分析',
+    body: '法人向けジム導入の費用対効果を数値化。Concept2・SkiErg・Roxzone の減価償却と稼働率から算出したROI計算シートを公開する。',
+    metric: { val: '¥4.2M', note: '3年 ROI 試算（8台構成）' },
+    href: '/tier1-roi',
+    badge: '法人向け',
+  },
+  {
+    tier: 'TIER 2',
+    label: 'BIO',
+    title: '脳疲労・サプリ解析',
+    body: '激務中の認知パフォーマンスを維持する。HRV・睡眠スコアとサプリメントプロトコルの相関を12週データで示す。',
+    metric: { val: '+18%', note: 'HRV スコア改善率' },
+    href: '/tier2-bio',
+    badge: 'バイオハック',
+  },
+  {
+    tier: 'TIER 3',
+    label: 'OPS',
+    title: '激務マネージャーの戦略ログ',
+    body: 'スタートアップCEOの週次OKRとカレンダーブロッキングを実開示。ディープワーク22h/週を維持する運用設計を図解する。',
+    metric: { val: '22h', note: 'ディープワーク / 週' },
+    href: '/tier3-ops',
+    badge: '戦略',
+  },
+];
+---
+
+<section id="bento" class="py-20 md:py-28 bg-surface-base" aria-labelledby="bento-heading">
+  <div class="container-site">
+
+    <!-- Section header -->
+    <div class="flex items-end justify-between mb-10 border-b border-subtle pb-6">
+      <div>
+        <p class="label-yellow mb-3">PERFORMANCE DASHBOARD</p>
+        <h2 id="bento-heading" class="font-black text-white text-3xl md:text-4xl">
+          Data Center
+        </h2>
+      </div>
+      <p class="text-ink-muted text-sm hidden md:block max-w-xs text-right">
+        数値化できないものは語らない。すべてのウィジェットはライブデータ連携予定。
+      </p>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-12 gap-px bg-subtle">
+
+      <!-- ① Countdown — col 1-5, row 1 -->
+      <div
+        class="col-span-12 md:col-span-5 bento-cell flex flex-col justify-between min-h-[300px]"
+        aria-label="2026 大阪大会カウントダウン"
+      >
+        <div>
+          <p class="label-yellow mb-4">COUNTDOWN</p>
+          <p class="text-ink-secondary text-sm mb-6">2026 HYROX OSAKA まで</p>
+          <!-- JS countdown -->
+          <div id="countdown" class="grid grid-cols-4 gap-3" aria-live="polite">
+            <div class="flex flex-col items-center">
+              <span id="cd-days"   class="data-value text-4xl md:text-5xl">--</span>
+              <span class="label-xs mt-1">DAYS</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <span id="cd-hours"  class="data-value text-4xl md:text-5xl">--</span>
+              <span class="label-xs mt-1">HRS</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <span id="cd-mins"   class="data-value text-4xl md:text-5xl">--</span>
+              <span class="label-xs mt-1">MIN</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <span id="cd-secs"   class="data-value text-4xl md:text-5xl">--</span>
+              <span class="label-xs mt-1">SEC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-subtle flex items-center justify-between">
+          <div>
+            <p class="text-white font-bold text-sm">2026 HYROX OSAKA</p>
+            <p class="label-xs mt-0.5">Target: Sub 1:15:00</p>
+          </div>
+          <a href="/race-plan" class="label-yellow hover:text-white transition-colors duration-200
+                                      flex items-center gap-1">
+            Race Plan →
+          </a>
+        </div>
+      </div>
+
+      <!-- ② Training Data Viz — col 6-12, row 1 -->
+      <div
+        class="col-span-12 md:col-span-7 bento-cell min-h-[300px]"
+        aria-label="最新トレーニングデータ"
+      >
+        <p class="label-yellow mb-6">TRAINING DATA — 2026.02 最新</p>
+        <div class="space-y-4">
+          {trainingData.map(item => {
+            const pct = Math.min((item.value / item.max) * 100, 100);
+            return (
+              <div>
+                <div class="flex justify-between items-baseline mb-1.5">
+                  <span class="text-ink-secondary text-xs">
+                    {item.label.replace('\n', ' ')}
+                  </span>
+                  <span class="data-value text-sm">{item.display}</span>
+                </div>
+                <!-- Progress bar -->
+                <div class="h-1.5 bg-surface-03 w-full" role="progressbar"
+                     aria-valuemin={0} aria-valuemax={item.max}
+                     aria-valuenow={item.value} aria-label={item.label}>
+                  <div
+                    class="h-full bg-hyrox-yellow transition-all duration-700"
+                    style={`width: ${pct}%`}
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <p class="label-xs mt-6">
+          ← 短いほど高パフォーマンス（時間系）/ バーは最大値比
+        </p>
+      </div>
+
+      <!-- ③④⑤ Tier Cards — row 2 (3 equal cols) -->
+      {tiers.map((tier, i) => (
+        <a
+          href={tier.href}
+          class={`col-span-12 md:col-span-4 bento-cell group flex flex-col justify-between min-h-[240px]
+                  ${i > 0 ? '' : ''}`}
+          aria-label={tier.title}
+        >
+          <div>
+            <!-- Tier badge -->
+            <div class="flex items-center justify-between mb-5">
+              <span class="label-yellow">{tier.tier} / {tier.label}</span>
+              <span class="text-[9px] font-bold tracking-wider uppercase
+                           border border-hyrox-yellow/40 text-hyrox-yellow/70 px-2 py-0.5">
+                {tier.badge}
+              </span>
+            </div>
+
+            <h3 class="font-bold text-white text-lg md:text-xl mb-3 leading-snug
+                       group-hover:text-hyrox-yellow transition-colors duration-200">
+              {tier.title}
+            </h3>
+
+            <p class="text-ink-muted text-sm leading-relaxed line-clamp-3">{tier.body}</p>
+          </div>
+
+          <!-- Bottom metric -->
+          <div class="mt-6 pt-5 border-t border-subtle flex items-end justify-between">
+            <div>
+              <p class="data-value text-2xl">{tier.metric.val}</p>
+              <p class="label-xs mt-0.5">{tier.metric.note}</p>
+            </div>
+            <svg class="w-5 h-5 text-ink-muted group-hover:text-hyrox-yellow
+                        translate-x-0 group-hover:translate-x-1 transition-all duration-200"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </a>
+      ))}
+
+    </div>
+    <!-- /Bento Grid -->
+  </div>
+</section>
+
+<!-- Countdown JS -->
+<script define:vars={{ TARGET_DATE }}>
+  function pad(n) {
+    return String(Math.floor(n)).padStart(2, '0');
+  }
+
+  function tick() {
+    const now  = Date.now();
+    const diff = new Date(TARGET_DATE).getTime() - now;
+
+    if (diff <= 0) {
+      ['days','hours','mins','secs'].forEach(id => {
+        const el = document.getElementById('cd-' + id);
+        if (el) el.textContent = '00';
+      });
+      return;
+    }
+
+    const totalSecs = diff / 1000;
+    const days  = Math.floor(totalSecs / 86400);
+    const hours = Math.floor((totalSecs % 86400) / 3600);
+    const mins  = Math.floor((totalSecs % 3600) / 60);
+    const secs  = Math.floor(totalSecs % 60);
+
+    const el = {
+      days:  document.getElementById('cd-days'),
+      hours: document.getElementById('cd-hours'),
+      mins:  document.getElementById('cd-mins'),
+      secs:  document.getElementById('cd-secs'),
+    };
+
+    if (el.days)  el.days.textContent  = pad(days);
+    if (el.hours) el.hours.textContent = pad(hours);
+    if (el.mins)  el.mins.textContent  = pad(mins);
+    if (el.secs)  el.secs.textContent  = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
