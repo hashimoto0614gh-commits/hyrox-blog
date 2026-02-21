@@ -2,45 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
 
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-brand-dark text-white antialiased;
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+    font-family: "Noto Sans JP", system-ui, sans-serif;
     font-feature-settings: "palt";
+    line-height: 1.6;
   }
 
-  ::selection {
-    @apply bg-brand-red text-white;
-  }
+  ::selection { background-color: #FFFF00; color: #0A0A0A; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0A0A0A; }
+  ::-webkit-scrollbar-thumb { background: #FFFF00; }
 }
 
 @layer components {
-  .container-wide {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  .container-site {
+    @apply max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12;
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-brand-red text-white font-display font-semibold
-           px-8 py-4 text-sm tracking-widest uppercase
-           hover:bg-red-700 transition-colors duration-200;
+    @apply inline-flex items-center gap-2
+           bg-hyrox-yellow text-surface-base font-bold
+           text-sm tracking-wider px-7 py-3.5
+           transition-opacity duration-200 hover:opacity-80;
   }
 
-  .btn-outline {
-    @apply inline-flex items-center gap-2 border border-white text-white font-display font-semibold
-           px-8 py-4 text-sm tracking-widest uppercase
-           hover:bg-white hover:text-brand-dark transition-colors duration-200;
+  .btn-ghost {
+    @apply inline-flex items-center gap-2
+           border border-ink-muted text-ink-secondary font-medium
+           text-sm tracking-wider px-7 py-3.5
+           transition-colors duration-200 hover:border-white hover:text-white;
   }
 
-  .section-label {
-    @apply font-display text-brand-red tracking-[0.25em] uppercase text-xs font-semibold;
+  .label-xs {
+    @apply text-[10px] font-bold tracking-[0.2em] uppercase text-ink-muted;
   }
 
-  .section-title {
-    @apply font-display font-bold leading-tight;
+  .label-yellow {
+    @apply text-[10px] font-bold tracking-[0.2em] uppercase text-hyrox-yellow;
+  }
+
+  .bento-cell {
+    @apply bg-surface-01 border border-subtle p-6 md:p-8
+           transition-colors duration-300 hover:bg-surface-02;
+  }
+
+  .data-value {
+    @apply font-mono text-hyrox-yellow font-bold tabular-nums;
   }
 }

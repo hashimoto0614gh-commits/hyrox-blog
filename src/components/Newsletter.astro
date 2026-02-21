@@ -3,52 +3,99 @@
 
 <section
   id="newsletter"
-  class="bg-brand-red py-24 md:py-32"
+  class="py-20 md:py-28 bg-hyrox-yellow"
   aria-labelledby="newsletter-heading"
 >
-  <div class="container-wide">
-    <div class="max-w-2xl mx-auto text-center">
-      <p class="font-display text-white/70 text-xs tracking-[0.3em] uppercase mb-6">
-        Newsletter
-      </p>
-      <h2 id="newsletter-heading" class="font-display font-bold text-white mb-6"
-          style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;">
-        週次ログを<br />メールで受け取る
-      </h2>
-      <p class="text-white/80 text-sm leading-relaxed mb-10 max-w-md mx-auto">
-        トレーニングデータ、経営の気付き、週次スケジュール——毎週月曜に届ける。
-        購読者限定の生データ（Garminログ）も共有する。
-      </p>
+  <div class="container-site">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
 
-      <form
-        class="flex flex-col sm:flex-row gap-0 max-w-md mx-auto"
-        method="POST"
-        action="/api/subscribe"
-        novalidate
-      >
-        <label for="email" class="sr-only">メールアドレス</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          required
-          placeholder="your@email.com"
-          class="flex-1 bg-white/10 border border-white/30 text-white placeholder-white/40
-                 px-5 py-4 text-sm font-sans focus:outline-none focus:border-white
-                 transition-colors duration-200"
-        />
-        <button
-          type="submit"
-          class="bg-brand-dark text-white font-display font-semibold text-xs tracking-widest
-                 uppercase px-8 py-4 hover:bg-black transition-colors duration-200 flex-shrink-0"
+      <!-- Left -->
+      <div>
+        <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-surface-base/60 mb-4">
+          WEEKLY LOG
+        </p>
+        <h2 id="newsletter-heading"
+            class="font-black text-surface-base leading-tight mb-4"
+            style="font-size: clamp(2rem, 5vw, 3.5rem);">
+          データを<br />毎週届ける
+        </h2>
+        <p class="text-surface-base/70 text-sm leading-relaxed max-w-sm">
+          トレーニングログ・経営の気付き・週次スケジュール——毎週月曜 AM7:00 配信。
+          購読者限定で Garmin CSV と OKR テンプレートを公開する。
+        </p>
+
+        <!-- Social proof -->
+        <div class="flex items-center gap-4 mt-6">
+          <div class="flex -space-x-2">
+            {['A','B','C','D'].map(l => (
+              <div class="w-7 h-7 rounded-full bg-surface-02 border-2 border-hyrox-yellow
+                          flex items-center justify-center text-xs font-bold text-white">
+                {l}
+              </div>
+            ))}
+          </div>
+          <p class="text-surface-base/70 text-xs font-bold">
+            経営者・競技者 240名 購読中
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div>
+        <form
+          class="space-y-3"
+          method="POST"
+          action="/api/subscribe"
+          novalidate
         >
-          登録する
-        </button>
-      </form>
+          <div>
+            <label for="sub-email" class="sr-only">メールアドレス</label>
+            <input
+              id="sub-email"
+              type="email"
+              name="email"
+              required
+              placeholder="your@email.com"
+              autocomplete="email"
+              class="w-full bg-surface-base/10 border border-surface-base/20
+                     text-surface-base placeholder-surface-base/40
+                     px-4 py-3.5 text-sm
+                     focus:outline-none focus:border-surface-base
+                     transition-colors duration-200"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-surface-base text-hyrox-yellow font-black text-sm
+                   tracking-wider py-3.5 px-6
+                   hover:bg-surface-01 transition-colors duration-200"
+          >
+            無料で購読する →
+          </button>
+          <p class="text-surface-base/50 text-[11px] text-center">
+            スパムなし。解除はいつでも1クリック。
+          </p>
+        </form>
 
-      <p class="text-white/50 text-xs mt-4">
-        スパムは送らない。解除はいつでも可能。
-      </p>
+        <!-- Perks list -->
+        <ul class="mt-6 space-y-2">
+          {[
+            '週次トレーニングデータ（Garmin CSV）',
+            '経営 OKR テンプレート',
+            '大会レポート先行配信',
+          ].map(perk => (
+            <li class="flex items-center gap-2 text-surface-base/70 text-xs">
+              <svg class="w-3.5 h-3.5 text-surface-base/60 flex-shrink-0" fill="none"
+                   stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                  d="M5 13l4 4L19 7" />
+              </svg>
+              {perk}
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>

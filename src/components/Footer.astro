@@ -1,75 +1,94 @@
 ---
 const year = new Date().getFullYear();
 
-const links = {
-  content: [
-    { label: 'HYROX',  href: '/hyrox' },
-    { label: '生産性', href: '/productivity' },
-    { label: 'パパ業', href: '/family' },
-    { label: '全記事', href: '/posts' },
-  ],
-  meta: [
-    { label: 'About',          href: '/about' },
-    { label: 'プライバシーポリシー', href: '/privacy' },
-    { label: 'お問い合わせ',   href: '/contact' },
-  ],
-};
+const cols = [
+  {
+    head: 'CONTENT',
+    links: [
+      { label: 'HYROX トレーニング', href: '/hyrox' },
+      { label: '生産性・経営ログ',   href: '/productivity' },
+      { label: 'パパ業・育児',       href: '/family' },
+      { label: '全記事一覧',         href: '/posts' },
+    ],
+  },
+  {
+    head: 'DATA',
+    links: [
+      { label: 'Tier 1 — ジム機材 ROI',   href: '/tier1-roi' },
+      { label: 'Tier 2 — 脳疲労サプリ',   href: '/tier2-bio' },
+      { label: 'Tier 3 — 戦略ログ',       href: '/tier3-ops' },
+      { label: 'Performance Dashboard', href: '/#bento' },
+    ],
+  },
+  {
+    head: 'INFO',
+    links: [
+      { label: 'About',             href: '/about' },
+      { label: 'プライバシーポリシー', href: '/privacy' },
+      { label: 'お問い合わせ',       href: '/contact' },
+      { label: 'Weekly Log 購読',   href: '/#newsletter' },
+    ],
+  },
+];
 ---
 
-<footer class="bg-brand-gray border-t border-white/5">
-  <div class="container-wide py-16 md:py-20">
-    <div class="grid md:grid-cols-3 gap-12 md:gap-16">
-      <!-- Brand -->
-      <div>
-        <a href="/" class="flex items-center gap-3 mb-4 w-fit">
-          <span class="block w-6 h-6 bg-brand-red flex-shrink-0"></span>
-          <span class="font-display font-bold text-sm tracking-widest uppercase text-white">
-            HYROX LOG
+<footer class="bg-surface-01 border-t border-subtle">
+  <!-- Yellow top accent bar -->
+  <div class="h-[2px] bg-hyrox-yellow"></div>
+
+  <div class="container-site py-16 md:py-20">
+    <div class="grid md:grid-cols-4 gap-12">
+
+      <!-- Brand column -->
+      <div class="md:col-span-1">
+        <a href="/" class="flex items-center gap-2 mb-5 w-fit" aria-label="トップへ">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect width="28" height="28" fill="#FFFF00"/>
+            <text x="4" y="21" font-family="Arial Black,sans-serif" font-size="18"
+                  font-weight="900" fill="#0A0A0A">H</text>
+          </svg>
+          <span class="font-black text-white text-sm tracking-widest uppercase">
+            HYROX PORTAL
           </span>
         </a>
-        <p class="text-brand-muted text-xs leading-relaxed max-w-xs">
-          HYROX競技者・スタートアップ経営者・父親。
-          三つの役割を同時に攻略する記録。
+        <p class="text-ink-muted text-xs leading-relaxed">
+          HYROX × 経営 × 育児。<br />
+          三役を同時攻略する数値記録メディア。
+        </p>
+        <p class="text-ink-muted text-xs mt-4 font-mono">
+          VO2max: <span class="text-hyrox-yellow font-bold">52</span> /
+          PB: <span class="text-hyrox-yellow font-bold">1:18:42</span>
         </p>
       </div>
 
-      <!-- Content links -->
-      <div>
-        <p class="section-label mb-5">コンテンツ</p>
-        <ul class="space-y-3">
-          {links.content.map(link => (
-            <li>
-              <a href={link.href}
-                 class="text-brand-muted text-sm hover:text-white transition-colors duration-200">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <!-- Link columns -->
+      {cols.map(col => (
+        <div>
+          <p class="label-yellow mb-5">{col.head}</p>
+          <ul class="space-y-3">
+            {col.links.map(link => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-ink-muted text-sm hover:text-white transition-colors duration-200"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
 
-      <!-- Meta links -->
-      <div>
-        <p class="section-label mb-5">情報</p>
-        <ul class="space-y-3">
-          {links.meta.map(link => (
-            <li>
-              <a href={link.href}
-                 class="text-brand-muted text-sm hover:text-white transition-colors duration-200">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
 
-    <div class="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row
-                justify-between items-center gap-4">
-      <p class="text-brand-muted text-xs">
-        &copy; {year} HYROX LOG. All rights reserved.
+    <!-- Bottom bar -->
+    <div class="mt-14 pt-6 border-t border-subtle flex flex-col sm:flex-row
+                justify-between items-center gap-3">
+      <p class="text-ink-muted text-xs">
+        &copy; {year} HYROX PORTAL. All rights reserved.
       </p>
-      <p class="text-brand-muted text-xs">
+      <p class="text-ink-muted text-xs font-mono">
         Built with Astro + Tailwind CSS
       </p>
     </div>

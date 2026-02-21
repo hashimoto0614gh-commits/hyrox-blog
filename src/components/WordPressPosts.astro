@@ -1,0 +1,187 @@
+---
+import type { WPPost } from '@/lib/wordpress';
+import { fetchPosts, getFeaturedImage, getCategories, formatDate, stripHtml } from '@/lib/wordpress';
+
+export interface Props {
+  /** WordPress サイト URL（例: https://your-blog.com）*/
+  endpoint: string;
+  /** 取得件数 (default: 6) */
+  perPage?: number;
+  /** セクション見出し */
+  heading?: string;
+}
+
+const {
+  endpoint,
+  perPage = 6,
+  heading = 'Latest Articles',
+} = Astro.props;
+
+// ビルド時にフェッチ。失敗時は空配列（フォールバック）
+let posts: WPPost[] = [];
+if (endpoint) {
+  posts = await fetchPosts(endpoint, { perPage });
+}
+
+// フォールバック: WordPress 未設定の場合はプレースホルダーカードを表示
+const PLACEHOLDER_POSTS = [
+  {
+    id: 1, date: '2026-02-15', slug: 'hyrox-osaka-2026',
+    link: '/posts/hyrox-osaka-2026',
+    title: { rendered: 'HYROX Japan 大阪 2026 レポート：タイム1:18:42の全内訳' },
+    excerpt: { rendered: 'スキーエルゴで2分ロス。ロクサーのペーシングは成功。次戦に向けた改善ポイントを種目別に分析する。' },
+  },
+  {
+    id: 2, date: '2026-02-08', slug: 'morning-training-deep-work',
+    link: '/posts/morning-training-deep-work',
+    title: { rendered: '早朝トレーニングと午前ディープワークの相関：12週データ公開' },
+    excerpt: { rendered: 'セッション後90分が最高の認知パフォーマンスウィンドウだ。週22hのディープワークを確保した設計を公開する。' },
+  },
+  {
+    id: 3, date: '2026-01-30', slug: 'bath-stretch-routine',
+    link: '/posts/bath-stretch-routine',
+    title: { rendered: '子どもと風呂に入りながらストレッチを11ヶ月継続した仕組み' },
+    excerpt: { rendered: '育児タスクをリカバリーセッションに変換する。風呂での股関節ルーティンで月8時間を確保した。' },
+  },
+  {
+    id: 4, date: '2026-01-20', slug: 'gym-roi-analysis',
+    link: '/posts/gym-roi-analysis',
+    title: { rendered: '法人ジム機材導入ROI：Concept2×SkiErg×Roxzone 3年試算' },
+    excerpt: { rendered: '8台構成で3年ROI ¥4.2M。減価償却と稼働率モデルを公開する。B2B向け意思決定フレームワーク。' },
+  },
+  {
+    id: 5, date: '2026-01-10', slug: 'hyrox-shoe-review',
+    link: '/posts/hyrox-shoe-review',
+    title: { rendered: 'HOKA Mach 6 レビュー：8ヶ月232kmのデータと結論' },
+    excerpt: { rendered: 'ロクサーとランの両立に特化した選択。ドロップ5mm、232gの数値と実感を書く。' },
+  },
+  {
+    id: 6, date: '2025-12-28', slug: 'okr-training-structure',
+    link: '/posts/okr-training-structure',
+    title: { rendered: 'OKRとトレーニング周期化は同じ構造だ' },
+    excerpt: { rendered: 'Q目標→週次KR→デイリータスクの設計は、マクロ→メソ→ミクロサイクルと一対一対応する。' },
+  },
+];
+
+const displayPosts = posts.length > 0 ? posts : (PLACEHOLDER_POSTS as unknown as WPPost[]);
+const isPlaceholder = posts.length === 0;
+
+function getExcerpt(post: WPPost): string {
+  return stripHtml(post.excerpt.rendered).slice(0, 100) + '…';
+}
+
+function getTitle(post: WPPost): string {
+  return post.title.rendered.replace(/&amp;/g, '&').replace(/&#039;/g, "'");
+}
+
+const categoryColors: Record<string, string> = {
+  'HYROX':  'text-hyrox-yellow',
+  '生産性':  'text-cyan-400',
+  'パパ業':  'text-green-400',
+};
+---
+
+<section id="posts" class="py-20 md:py-28 bg-surface-01" aria-labelledby="posts-heading">
+  <div class="container-site">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10
+                border-b border-subtle pb-6">
+      <div>
+        <p class="label-yellow mb-3">CONTENT</p>
+        <h2 id="posts-heading" class="font-black text-white text-3xl md:text-4xl">
+          {heading}
+        </h2>
+      </div>
+      <div class="flex items-center gap-4">
+        {isPlaceholder && (
+          <span class="label-xs border border-ink-muted px-2 py-1 text-ink-muted">
+            WP未接続 — プレースホルダー表示中
+          </span>
+        )}
+        <a href="/posts"
+           class="label-xs text-ink-muted hover:text-white transition-colors flex items-center gap-1">
+          全記事 →
+        </a>
+      </div>
+    </div>
+
+    <!-- Post grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-subtle">
+      {displayPosts.slice(0, perPage).map((post, i) => {
+        const imgSrc   = getFeaturedImage(post as WPPost);
+        const cats     = getCategories(post as WPPost);
+        const catLabel = cats[0] ?? 'HYROX';
+        const catCls   = categoryColors[catLabel] ?? 'text-ink-secondary';
+
+        return (
+          <article class="bg-surface-01 hover:bg-surface-02 transition-colors duration-200 group">
+            <!-- Featured image -->
+            <a href={post.link} class="block aspect-[16/9] overflow-hidden bg-surface-03">
+              {imgSrc ? (
+                <img
+                  src={imgSrc}
+                  alt={`${getTitle(post)} のサムネイル`}
+                  width="640" height="360"
+                  loading={i < 3 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  class="w-full h-full object-cover opacity-80 group-hover:opacity-100
+                         group-hover:scale-105 transition-all duration-500"
+                />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center">
+                  <span class="font-black text-5xl text-surface-03 select-none">H</span>
+                </div>
+              )}
+            </a>
+
+            <!-- Card body -->
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <span class={`label-xs font-bold ${catCls}`}>{catLabel}</span>
+                <span class="label-xs">{formatDate(post.date)}</span>
+              </div>
+
+              <h3 class="font-bold text-white text-base leading-snug mb-3
+                         group-hover:text-hyrox-yellow transition-colors duration-200">
+                <a href={post.link}>{getTitle(post)}</a>
+              </h3>
+
+              <p class="text-ink-muted text-sm leading-relaxed line-clamp-2">
+                {getExcerpt(post)}
+              </p>
+
+              <a
+                href={post.link}
+                class="mt-5 inline-flex items-center gap-1.5 label-xs
+                       text-ink-muted hover:text-hyrox-yellow transition-colors duration-200"
+                aria-label={`${getTitle(post)} を読む`}
+              >
+                READ MORE
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- WP Integration note -->
+    {isPlaceholder && (
+      <div class="mt-8 bg-surface-02 border border-subtle p-5">
+        <p class="label-xs mb-2">WordPress REST API 接続設定</p>
+        <p class="text-ink-muted text-sm font-mono">
+          {'<WordPressPosts endpoint="https://your-wp-site.com" perPage={6} />'}
+        </p>
+        <p class="text-ink-muted text-xs mt-2">
+          endpoint に WordPress サイト URL を渡すと、ビルド時に記事を自動取得します。
+        </p>
+      </div>
+    )}
+
+  </div>
+</section>

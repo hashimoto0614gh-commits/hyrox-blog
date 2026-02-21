@@ -1,56 +1,63 @@
 ---
 const navLinks = [
-  { href: '#hyrox',      label: 'HYROX' },
-  { href: '#productivity', label: '生産性' },
-  { href: '#family',     label: 'パパ業' },
-  { href: '#about',      label: 'About' },
+  { href: '#bento',        label: 'DATA' },
+  { href: '#posts',        label: 'ARTICLES' },
+  { href: '#about',        label: 'ABOUT' },
 ];
 ---
 
-<header
-  id="header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-  x-data="{ scrolled: false }"
-  x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 40)"
-  :class="scrolled ? 'bg-brand-dark/95 backdrop-blur border-b border-white/10' : ''"
->
-  <div class="container-wide flex items-center justify-between h-16 md:h-20">
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-3 group">
-      <span class="block w-8 h-8 bg-brand-red flex-shrink-0"></span>
-      <span class="font-display font-bold text-sm md:text-base tracking-widest uppercase text-white group-hover:text-brand-red transition-colors">
-        HYROX LOG
-      </span>
-    </a>
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50">
+  <!-- Top border: yellow line -->
+  <div class="h-[2px] bg-hyrox-yellow w-full"></div>
 
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-8">
-      {navLinks.map(link => (
-        <a
-          href={link.href}
-          class="font-display text-xs tracking-[0.2em] uppercase text-brand-muted hover:text-white transition-colors duration-200"
-        >
-          {link.label}
+  <!-- Nav bar -->
+  <div
+    id="nav-bar"
+    class="bg-surface-base/90 backdrop-blur-md border-b border-subtle transition-all duration-300"
+  >
+    <div class="container-site flex items-center justify-between h-14 md:h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2.5 group" aria-label="HYROX PORTAL ホーム">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" fill="#FFFF00"/>
+          <text x="4" y="21" font-family="Arial Black,sans-serif" font-size="18"
+                font-weight="900" fill="#0A0A0A">H</text>
+        </svg>
+        <span class="font-black text-white text-sm tracking-[0.15em] uppercase
+                     group-hover:text-hyrox-yellow transition-colors duration-200">
+          HYROX PORTAL
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="メインナビゲーション">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class="label-xs text-ink-muted hover:text-white transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="#newsletter" class="btn-primary text-xs py-2.5 px-5">
+          Weekly Log 購読
         </a>
-      ))}
-    </nav>
-
-    <!-- CTA -->
-    <a href="#newsletter" class="btn-primary text-xs py-3 px-6 hidden md:inline-flex">
-      記事を受け取る
-    </a>
-
-    <!-- Mobile menu button -->
-    <button
-      class="md:hidden text-white p-2"
-      aria-label="メニューを開く"
-      x-data="{ open: false }"
-      @click="open = !open"
-    >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+      </div>
+    </div>
   </div>
 </header>
+
+<script>
+  const header = document.getElementById('nav-bar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      header?.classList.add('shadow-lg', 'shadow-black/50');
+    } else {
+      header?.classList.remove('shadow-lg', 'shadow-black/50');
+    }
+  }, { passive: true });
+</script>

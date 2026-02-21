@@ -1,26 +1,36 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header      from '@/components/Header.astro';
-import Hero        from '@/components/Hero.astro';
-import Pillars     from '@/components/Pillars.astro';
-import LatestPosts from '@/components/LatestPosts.astro';
-import About       from '@/components/About.astro';
-import Newsletter  from '@/components/Newsletter.astro';
-import Footer      from '@/components/Footer.astro';
+import BaseLayout      from '@/layouts/BaseLayout.astro';
+import Header          from '@/components/Header.astro';
+import Hero            from '@/components/Hero.astro';
+import BentoGrid       from '@/components/BentoGrid.astro';
+import WordPressPosts   from '@/components/WordPressPosts.astro';
+import Newsletter      from '@/components/Newsletter.astro';
+import Footer          from '@/components/Footer.astro';
 import '@/styles/global.css';
+
+/**
+ * WordPress サイト URL をここに設定する。
+ * 未設定（空文字）の場合はプレースホルダー記事を表示する。
+ */
+const WP_ENDPOINT = import.meta.env.WP_ENDPOINT ?? '';
 ---
 
 <BaseLayout
-  title="HYROX×生産性×パパ | スタートアップマネージャーの競技記録"
-  description="HYROX競技者・スタートアップ経営者・父親として三役を同時攻略。VO2max 52、タイム1:18:42を記録した週5早朝トレーニングと経営ログを公開する。"
+  title="HYROX PORTAL — 競技×経営×育児の数値記録メディア"
+  description="HYROX競技者・スタートアップ経営者・父親。VO2max 52、タイム1:18:42。週5早朝4:50トレーニングと経営ログを数値で公開する。"
 >
   <Header />
+
   <main>
     <Hero />
-    <Pillars />
-    <LatestPosts />
-    <About />
+    <BentoGrid />
+    <WordPressPosts
+      endpoint={WP_ENDPOINT}
+      perPage={6}
+      heading="Latest Articles"
+    />
     <Newsletter />
   </main>
+
   <Footer />
 </BaseLayout>

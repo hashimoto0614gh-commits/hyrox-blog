@@ -4,22 +4,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          red:    '#E63329',
-          dark:   '#0D0D0D',
-          gray:   '#1A1A1A',
-          muted:  '#6B7280',
-          light:  '#F5F5F5',
-          accent: '#F5A623',
+        hyrox: {
+          yellow: '#FFFF00',
+        },
+        surface: {
+          base: '#0A0A0A',
+          '01':  '#111111',
+          '02':  '#161616',
+          '03':  '#1E1E1E',
+        },
+        ink: {
+          primary:   '#FFFFFF',
+          secondary: '#A0A0A0',
+          muted:     '#555555',
         },
       },
       fontFamily: {
-        sans: ['"Noto Sans JP"', 'sans-serif'],
-        display: ['"Oswald"', '"Noto Sans JP"', 'sans-serif'],
+        sans:    ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+        display: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', '"Courier New"', 'monospace'],
       },
-      fontSize: {
-        'display-xl': ['clamp(3rem, 8vw, 7rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
-        'display-lg': ['clamp(2rem, 5vw, 4rem)', { lineHeight: '1.1',  letterSpacing: '-0.01em' }],
+      borderColor: {
+        subtle: 'rgba(255,255,255,0.08)',
+      },
+      animation: {
+        'fade-up':  'fadeUp 0.5s ease forwards',
+        'flicker':  'flicker 4s linear infinite',
+      },
+      keyframes: {
+        fadeUp: {
+          '0%':   { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        flicker: {
+          '0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%': { opacity: '1' },
+          '20%, 24%, 55%':                           { opacity: '0.6' },
+        },
       },
     },
   },
