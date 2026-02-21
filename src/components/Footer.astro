@@ -1,0 +1,77 @@
+---
+const year = new Date().getFullYear();
+
+const links = {
+  content: [
+    { label: 'HYROX',  href: '/hyrox' },
+    { label: '生産性', href: '/productivity' },
+    { label: 'パパ業', href: '/family' },
+    { label: '全記事', href: '/posts' },
+  ],
+  meta: [
+    { label: 'About',          href: '/about' },
+    { label: 'プライバシーポリシー', href: '/privacy' },
+    { label: 'お問い合わせ',   href: '/contact' },
+  ],
+};
+---
+
+<footer class="bg-brand-gray border-t border-white/5">
+  <div class="container-wide py-16 md:py-20">
+    <div class="grid md:grid-cols-3 gap-12 md:gap-16">
+      <!-- Brand -->
+      <div>
+        <a href="/" class="flex items-center gap-3 mb-4 w-fit">
+          <span class="block w-6 h-6 bg-brand-red flex-shrink-0"></span>
+          <span class="font-display font-bold text-sm tracking-widest uppercase text-white">
+            HYROX LOG
+          </span>
+        </a>
+        <p class="text-brand-muted text-xs leading-relaxed max-w-xs">
+          HYROX競技者・スタートアップ経営者・父親。
+          三つの役割を同時に攻略する記録。
+        </p>
+      </div>
+
+      <!-- Content links -->
+      <div>
+        <p class="section-label mb-5">コンテンツ</p>
+        <ul class="space-y-3">
+          {links.content.map(link => (
+            <li>
+              <a href={link.href}
+                 class="text-brand-muted text-sm hover:text-white transition-colors duration-200">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Meta links -->
+      <div>
+        <p class="section-label mb-5">情報</p>
+        <ul class="space-y-3">
+          {links.meta.map(link => (
+            <li>
+              <a href={link.href}
+                 class="text-brand-muted text-sm hover:text-white transition-colors duration-200">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row
+                justify-between items-center gap-4">
+      <p class="text-brand-muted text-xs">
+        &copy; {year} HYROX LOG. All rights reserved.
+      </p>
+      <p class="text-brand-muted text-xs">
+        Built with Astro + Tailwind CSS
+      </p>
+    </div>
+  </div>
+</footer>

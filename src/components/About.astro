@@ -1,0 +1,97 @@
+---
+const timeline = [
+  { year: '2022', event: 'HYROX 競技デビュー。タイム 1:41:20。完走が目標だった。' },
+  { year: '2023', event: 'スタートアップ創業。朝5時トレーニングを習慣化。VO2max 44→48。' },
+  { year: '2024', event: 'HYROX Japan 出場。タイム 1:26:08。子どもが生まれる。' },
+  { year: '2025', event: 'タイム 1:18:42。VO2max 52。スタッフ8名体制へ。' },
+];
+
+const gear = [
+  { name: 'HOKA Mach 6', spec: '232g / ドロップ5mm', use: 'レース・ロクサー' },
+  { name: 'Garmin Forerunner 265', spec: 'HR / VO2max / HRV', use: '心拍ゾーン管理' },
+  { name: 'Concept2 RowErg', spec: 'PM5モニター', use: '毎朝ローイング' },
+];
+---
+
+<section id="about" class="bg-brand-dark py-24 md:py-36" aria-labelledby="about-heading">
+  <div class="container-wide">
+    <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+      <!-- Left: Bio -->
+      <div>
+        <p class="section-label mb-6">
+          <span class="inline-block w-6 h-px bg-brand-red mr-3 align-middle"></span>
+          About
+        </p>
+        <h2 id="about-heading" class="section-title text-white mb-6"
+            style="font-size: clamp(2rem, 4vw, 3.5rem);">
+          Who<br />am I.
+        </h2>
+        <div class="space-y-4 text-brand-muted text-sm leading-relaxed">
+          <p>
+            30代。スタートアップ経営者、HYROX競技者、1歳児の父。アメフト部出身。
+          </p>
+          <p>
+            週5の早朝4:50セッションを3年以上継続中。
+            VO2max 44 からスタートし、現在52。タイムは 1:41 → 1:18 まで縮めた。
+          </p>
+          <p>
+            「時間がない」は設計の問題だ。経営でOKRを運用するのと同じ構造で、
+            トレーニング・仕事・育児を週次で最適化している。
+            その設計図をそのまま公開する。
+          </p>
+        </div>
+
+        <!-- Timeline -->
+        <div class="mt-12 space-y-0">
+          {timeline.map((item, i) => (
+            <div class="flex gap-6 group">
+              <div class="flex flex-col items-center">
+                <span class="font-display text-brand-red font-bold text-sm w-12 text-right pt-1 flex-shrink-0">
+                  {item.year}
+                </span>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="block w-2 h-2 bg-brand-red flex-shrink-0"></span>
+                  {i < timeline.length - 1 && (
+                    <span class="sr-only">↓</span>
+                  )}
+                </div>
+                <p class="text-white text-sm pb-6 leading-relaxed">{item.event}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Gear table -->
+      <div>
+        <p class="section-label mb-6">
+          <span class="inline-block w-6 h-px bg-brand-red mr-3 align-middle"></span>
+          俺の機材
+        </p>
+        <div class="space-y-px">
+          {gear.map(item => (
+            <div class="bg-brand-gray p-6 grid grid-cols-2 gap-4">
+              <div>
+                <p class="font-display font-semibold text-white text-sm mb-1">{item.name}</p>
+                <p class="text-brand-muted text-xs">{item.spec}</p>
+              </div>
+              <div class="text-right">
+                <span class="section-label">{item.use}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Philosophy box -->
+        <blockquote class="mt-10 border-l-4 border-brand-red pl-6">
+          <p class="font-display text-white text-lg md:text-xl font-bold leading-snug mb-3">
+            "数値化できないなら<br />それは情報ではない。"
+          </p>
+          <cite class="text-brand-muted text-xs not-italic">— このブログの編集方針より</cite>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>

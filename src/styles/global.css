@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@400;600;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-dark text-white antialiased;
+    font-feature-settings: "palt";
+  }
+
+  ::selection {
+    @apply bg-brand-red text-white;
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-brand-red text-white font-display font-semibold
+           px-8 py-4 text-sm tracking-widest uppercase
+           hover:bg-red-700 transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-white text-white font-display font-semibold
+           px-8 py-4 text-sm tracking-widest uppercase
+           hover:bg-white hover:text-brand-dark transition-colors duration-200;
+  }
+
+  .section-label {
+    @apply font-display text-brand-red tracking-[0.25em] uppercase text-xs font-semibold;
+  }
+
+  .section-title {
+    @apply font-display font-bold leading-tight;
+  }
+}

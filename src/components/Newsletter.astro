@@ -1,0 +1,54 @@
+---
+---
+
+<section
+  id="newsletter"
+  class="bg-brand-red py-24 md:py-32"
+  aria-labelledby="newsletter-heading"
+>
+  <div class="container-wide">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="font-display text-white/70 text-xs tracking-[0.3em] uppercase mb-6">
+        Newsletter
+      </p>
+      <h2 id="newsletter-heading" class="font-display font-bold text-white mb-6"
+          style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;">
+        週次ログを<br />メールで受け取る
+      </h2>
+      <p class="text-white/80 text-sm leading-relaxed mb-10 max-w-md mx-auto">
+        トレーニングデータ、経営の気付き、週次スケジュール——毎週月曜に届ける。
+        購読者限定の生データ（Garminログ）も共有する。
+      </p>
+
+      <form
+        class="flex flex-col sm:flex-row gap-0 max-w-md mx-auto"
+        method="POST"
+        action="/api/subscribe"
+        novalidate
+      >
+        <label for="email" class="sr-only">メールアドレス</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          required
+          placeholder="your@email.com"
+          class="flex-1 bg-white/10 border border-white/30 text-white placeholder-white/40
+                 px-5 py-4 text-sm font-sans focus:outline-none focus:border-white
+                 transition-colors duration-200"
+        />
+        <button
+          type="submit"
+          class="bg-brand-dark text-white font-display font-semibold text-xs tracking-widest
+                 uppercase px-8 py-4 hover:bg-black transition-colors duration-200 flex-shrink-0"
+        >
+          登録する
+        </button>
+      </form>
+
+      <p class="text-white/50 text-xs mt-4">
+        スパムは送らない。解除はいつでも可能。
+      </p>
+    </div>
+  </div>
+</section>

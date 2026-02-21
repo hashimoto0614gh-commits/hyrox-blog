@@ -1,0 +1,101 @@
+---
+const posts = [
+  {
+    category: 'HYROX',
+    date: '2026-02-15',
+    title: 'HYROX Japan 2026 大会レポート：タイム1:18:42の内訳と反省点',
+    excerpt: 'スキーエルゴで2分ロス。ロクサーのペーシングは成功。次戦に向けた改善ポイントを種目別に分析する。',
+    readTime: '8分',
+    href: '/posts/hyrox-japan-2026-report',
+  },
+  {
+    category: '生産性',
+    date: '2026-02-08',
+    title: '早朝トレーニングと午前業務の相関：12週間のデータ公開',
+    excerpt: 'セッション後90分はコーティゾル が最適化される。この窓をディープワークに充てた結果、週あたり集中時間が+4.2hになった。',
+    readTime: '6分',
+    href: '/posts/morning-training-productivity-correlation',
+  },
+  {
+    category: 'パパ業',
+    date: '2026-01-30',
+    title: '子どもと風呂に入りながらストレッチを11ヶ月継続した仕組み',
+    excerpt: '育児タスクをリカバリーセッションに変換する。風呂での股関節ルーティンで週5回×10分=8時間/月を確保した。',
+    readTime: '5分',
+    href: '/posts/bath-stretch-routine-with-kids',
+  },
+];
+
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+}
+---
+
+<section class="bg-brand-gray py-24 md:py-36" aria-labelledby="posts-heading">
+  <div class="container-wide">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
+      <div>
+        <p class="section-label mb-4">
+          <span class="inline-block w-6 h-px bg-brand-red mr-3 align-middle"></span>
+          最新記事
+        </p>
+        <h2 id="posts-heading" class="section-title text-white" style="font-size: clamp(1.8rem, 4vw, 3rem);">
+          Latest Posts
+        </h2>
+      </div>
+      <a href="/posts" class="text-xs font-display tracking-widest uppercase text-brand-muted
+                              hover:text-white transition-colors duration-200 flex items-center gap-2">
+        全記事を見る
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Post list -->
+    <div class="space-y-px">
+      {posts.map((post, i) => (
+        <a
+          href={post.href}
+          class="group flex flex-col md:flex-row md:items-center gap-4 md:gap-8
+                 bg-brand-dark hover:bg-brand-dark/60 transition-colors duration-200
+                 p-6 md:p-8"
+        >
+          <!-- Index -->
+          <span class="hidden md:block font-display text-brand-muted/40 text-4xl font-bold w-14 flex-shrink-0 text-right">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+
+          <!-- Category + Date -->
+          <div class="flex items-center gap-3 md:w-40 flex-shrink-0">
+            <span class="section-label">{post.category}</span>
+            <span class="text-brand-muted text-xs">{formatDate(post.date)}</span>
+          </div>
+
+          <!-- Title + Excerpt -->
+          <div class="flex-1">
+            <h3 class="font-display font-semibold text-white text-base md:text-lg mb-1
+                       group-hover:text-brand-red transition-colors duration-200 leading-snug">
+              {post.title}
+            </h3>
+            <p class="text-brand-muted text-sm leading-relaxed line-clamp-2">{post.excerpt}</p>
+          </div>
+
+          <!-- Read time + Arrow -->
+          <div class="flex items-center gap-4 flex-shrink-0">
+            <span class="text-brand-muted text-xs font-display">{post.readTime}</span>
+            <svg class="w-5 h-5 text-brand-muted group-hover:text-brand-red
+                        translate-x-0 group-hover:translate-x-1 transition-all duration-200"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

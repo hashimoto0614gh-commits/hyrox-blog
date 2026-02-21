@@ -1,0 +1,120 @@
+---
+const pillars = [
+  {
+    id: 'hyrox',
+    number: '01',
+    tag: 'HYROX',
+    title: '競技データで語るトレーニング論',
+    body: 'ロクサー、スキーエルゴ、ウォールボール——種目ごとの計測ログと改善プロセスを公開する。「頑張った」ではなく数字で証明する。',
+    metrics: [
+      { label: 'ロクサー 100m', value: '1:14' },
+      { label: 'スキーエルゴ 1km', value: '3:28' },
+      { label: 'ランニング 1km', value: '4:05' },
+    ],
+    href: '/hyrox',
+    cta: 'レース記録を見る',
+  },
+  {
+    id: 'productivity',
+    number: '02',
+    tag: '生産性',
+    title: '経営 × フィジカルの相関を数値化する',
+    body: 'OKR設計とトレーニング周期化は同じ構造だ。早朝4:50のセッションが、午前中のディープワーク質にどう影響するかをデータで示す。',
+    metrics: [
+      { label: '週間ディープワーク', value: '22h' },
+      { label: '睡眠スコア平均', value: '84pt' },
+      { label: '集中ブロック数/日', value: '3-4' },
+    ],
+    href: '/productivity',
+    cta: '生産性ログを見る',
+  },
+  {
+    id: 'family',
+    number: '03',
+    tag: 'パパ業',
+    title: '時間のない中で三立する設計図',
+    body: '競技・仕事・育児の優先度を週次で再配置する。家族の理解を得る交渉術、子どもと同時にこなすセッション設計を実例で公開する。',
+    metrics: [
+      { label: '子どもと風呂に入る日数', value: '週6' },
+      { label: '家族タイム/週', value: '18h' },
+      { label: 'トレーニング時間', value: '90分/日' },
+    ],
+    href: '/family',
+    cta: '週次スケジュールを見る',
+  },
+];
+---
+
+<section class="bg-brand-dark py-24 md:py-36" aria-labelledby="pillars-heading">
+  <div class="container-wide">
+    <!-- Section header -->
+    <div class="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end gap-6 justify-between">
+      <div>
+        <p class="section-label mb-4">
+          <span class="inline-block w-6 h-px bg-brand-red mr-3 align-middle"></span>
+          3本柱
+        </p>
+        <h2 id="pillars-heading" class="section-title text-white text-display-lg">
+          Three Pillars
+        </h2>
+      </div>
+      <p class="text-brand-muted text-sm max-w-sm">
+        どの領域も「なんとなく」では語らない。計測し、改善し、記録する。
+      </p>
+    </div>
+
+    <!-- Pillars -->
+    <div class="space-y-px">
+      {pillars.map((pillar, i) => (
+        <article
+          id={pillar.id}
+          class="group bg-brand-gray hover:bg-brand-gray/80 transition-colors duration-300
+                 grid md:grid-cols-12 gap-0"
+        >
+          <!-- Number -->
+          <div class="md:col-span-1 p-8 md:p-10 border-r border-white/5 hidden md:flex
+                      items-start justify-center">
+            <span class="font-display text-xs text-brand-muted tracking-widest writing-mode-vertical"
+                  style="writing-mode: vertical-rl; text-orientation: mixed;">
+              {pillar.number}
+            </span>
+          </div>
+
+          <!-- Tag + Title + Body -->
+          <div class="md:col-span-6 p-8 md:p-10 flex flex-col justify-between border-r border-white/5">
+            <div>
+              <span class="section-label block mb-4">{pillar.tag}</span>
+              <h3 class="font-display font-bold text-white text-xl md:text-2xl mb-4 leading-snug
+                         group-hover:text-brand-red transition-colors duration-300">
+                {pillar.title}
+              </h3>
+              <p class="text-brand-muted text-sm leading-relaxed">{pillar.body}</p>
+            </div>
+            <a href={pillar.href} class="mt-8 inline-flex items-center gap-2 text-xs font-display
+                                         tracking-widest uppercase text-white hover:text-brand-red
+                                         transition-colors duration-200 w-fit">
+              {pillar.cta}
+              <svg class="w-4 h-4 translate-x-0 group-hover:translate-x-1 transition-transform duration-200"
+                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Metrics -->
+          <div class="md:col-span-5 grid grid-cols-3 divide-x divide-white/5">
+            {pillar.metrics.map(metric => (
+              <div class="p-6 md:p-10 flex flex-col justify-center">
+                <p class="font-display text-brand-red font-bold text-xl md:text-2xl mb-1">
+                  {metric.value}
+                </p>
+                <p class="text-brand-muted text-xs leading-tight">{metric.label}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+---
+
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark"
+  aria-label="ヒーローセクション"
+>
+  <!-- Background grid pattern -->
+  <div
+    class="absolute inset-0 opacity-5"
+    style="background-image: linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px);
+           background-size: 48px 48px;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Red accent bar (left edge) -->
+  <div class="absolute top-0 left-0 bottom-0 w-1 bg-brand-red" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="container-wide relative z-10 py-32 md:py-40">
+    <div class="max-w-4xl">
+      <!-- Eyebrow -->
+      <p class="section-label mb-6 flex items-center gap-3">
+        <span class="block w-8 h-px bg-brand-red"></span>
+        HYROX × 経営 × 育児 — 数値で語る
+      </p>
+
+      <!-- Main headline -->
+      <h1 class="font-display font-bold text-white mb-8 leading-[1.05]"
+          style="font-size: clamp(3.2rem, 9vw, 8rem); letter-spacing: -0.02em;">
+        RACE HARD.<br />
+        <span class="text-brand-red">LEAD SMART.</span><br />
+        <span class="text-brand-light/70" style="font-size: 0.6em;">PARENT WELL.</span>
+      </h1>
+
+      <!-- Sub copy -->
+      <p class="text-brand-muted text-base md:text-lg max-w-xl mb-10 leading-relaxed">
+        週5早朝4:50起きで VO2max を 48 → 52 に引き上げながら、スタートアップを経営し、子どもと風呂に入る。
+        再現性のある仕組みを数値で公開する。
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4">
+        <a href="#hyrox" class="btn-primary">
+          トレーニング記録を見る
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="#about" class="btn-outline">
+          About
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="mt-20 md:mt-28 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10">
+      {[
+        { num: '1:18:42', label: 'HYROX ベストタイム' },
+        { num: '52',      label: 'VO2max (2025.12)' },
+        { num: '3年',     label: 'HYROX 競技歴' },
+        { num: '週5+',    label: '早朝トレーニング頻度' },
+      ].map(stat => (
+        <div class="bg-brand-gray px-6 py-8">
+          <p class="font-display text-brand-red font-bold text-2xl md:text-4xl mb-1">{stat.num}</p>
+          <p class="text-brand-muted text-xs tracking-wide">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-brand-muted">
+    <span class="text-xs tracking-widest uppercase font-display">Scroll</span>
+    <span class="block w-px h-12 bg-gradient-to-b from-brand-muted to-transparent"></span>
+  </div>
+</section>
